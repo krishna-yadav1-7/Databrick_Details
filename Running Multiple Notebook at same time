@@ -1,0 +1,37 @@
+Method 1: Using dbutils.notebook.run() for Sequential Execution
+
+ Notebook_A → Extract data from a source.
+ Notebook_B → Process and clean the data.
+ Notebook_C → Load the data into a destination.
+
+In Master_Notebook (Parent Notebook)
+-----------
+# Run Notebook_A (Extract)
+result_A = dbutils.notebook.run("/Users/YourName/Notebook_A", 300)
+
+# Run Notebook_B (Transform) - using output of Notebook_A
+result_B = dbutils.notebook.run("/Users/YourName/Notebook_B", 300, {"input_data": result_A})
+
+# Run Notebook_C (Load) - using output of Notebook_B
+result_C = dbutils.notebook.run("/Users/YourName/Notebook_C", 300, {"processed_data": result_B})
+
+print("All notebooks executed successfully!")
+
+
+--------------------------------------------------
+
+ Method 2: Running Multiple Notebooks in Parallel Using Multithreading
+
+from concurrent.futures import ThreadPoolExecutor
+
+def run_notebook(notebook_path):
+    return dbutils.notebook.run(notebook_path, 300)
+
+notebooks = ["/Users/YourName/Notebook_A", "/Users/YourName/Notebook_B", "/Users/YourName/Notebook_C"]
+
+# Run all notebooks in parallel
+with ThreadPoolExecutor() as executor:
+    results = list(executor.map(run_notebook, notebooks))
+
+print("All notebooks executed in parallel!")
+
