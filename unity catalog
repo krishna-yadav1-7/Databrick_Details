@@ -1,0 +1,31 @@
+###Unity catalog in realtime
+
+
+
+Azure Cloud  
+│
+├── Resource Group
+│
+├── Azure Databricks Workspaces
+│     ├── Workspace-Dev
+│     │     └── Metastore: uc-metastore-dev
+│     │     └── Storage: adls-dev
+│     │     └── Cluster: dev-cluster
+│     │
+│     ├── Workspace-Stage
+│     │     └── Metastore: uc-metastore-stage
+│     │     └── Storage: adls-stage
+│     │     └── Cluster: stage-cluster
+│     │
+│     └── Workspace-Prod
+│           └── Metastore: uc-metastore-prod
+│           └── Storage: adls-prod
+│           └── Cluster: prod-cluster
+│
+├── Azure Key Vault  
+│     └── Store Secrets (per Environment)
+│
+└── Azure Monitoring & Logging  
+      └── Log Analytics  
+      └── Alerting
+
